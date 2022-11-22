@@ -1,3 +1,6 @@
+require('dotenv').config();
+const auth = `${process.env.USERNAME}:${process.env.PASSWORD}`;
+
 const puppeteer = require('puppeteer');
 const fs = require('fs')
 
@@ -47,7 +50,6 @@ let globalData;
             data.push(
               {
                 "_ID": line.toString(),
-                "cct_status": "publish",
                 'link': bookLink,
                 "titulo": bookTitle,
                 "autor": authorName,
@@ -80,14 +82,12 @@ const getAndPost= async()=> {
   const url_dominio = "https://aldair.aztecweb.net/wp-json/jet-cct/livros/"
   const parseData = JSON.parse(data);
   
-  
   await Promise.all(parseData.map(async book => {
-    await console.log(parseInt(book._ID))
     fetch(`${url_dominio}${parseInt(book._ID)}`, {
       method: 'POST',
       headers: {
-        Authorization: "Basic " + Buffer.from(`${username}:${password}`).toString('base64'),
-        "Content-Type": "application/json"
+        Authorization: "Basic " + Buffer.from(auth).toString('base64'),
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(book)
     }).then(res => res.json())

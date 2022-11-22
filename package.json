@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "dotenv": "^16.0.3",
     "html-table-to-json": "^1.0.0",
     "puppeteer": "^19.2.2"
   }
