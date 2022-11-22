@@ -1,12 +1,17 @@
+require('dotenv').config();
 const fs = require('fs');
 
+const auth = `${process.env.USERNAME}:${process.env.PASSWORD}`;
+
 const url = "https://aldair.aztecweb.net/wp-json/jet-cct/livros/";
+
+
 
 const getAndDelete = ()=> {
     fetch(url, {
         method: "GET",
         headers: {
-            Authorization: "Basic " + Buffer.from(`${username}:${password}`).toString('base64'),
+            Authorization: "Basic " + Buffer.from(auth).toString('base64'),
             "Content-Type": "application/json"
         }
     })
@@ -23,7 +28,7 @@ const getAndDelete = ()=> {
         fetch(url_livro, {
             method: 'DELETE',
             headers: {
-                Authorization: "Basic " + Buffer.from(`${username}:${password}`).toString('base64'),
+                Authorization: "Basic " + Buffer.from(auth).toString('base64'),
                 "Content-Type": "application/json" 
             },
             body: JSON.stringify(item)
