@@ -46,13 +46,14 @@ let globalData;
           if (verifyProps.every(value => { return value != ""; })) {
             data.push(
               {
+                "_ID": line.toString(),
                 "cct_status": "publish",
                 'link': bookLink,
                 "titulo": bookTitle,
                 "autor": authorName,
                 "fonte": bookFont,
                 "tipo_de_arquivo": fileType,
-                "tamanho_do_arquivo": fileSize,
+                "tamanho_de_arquivo": fileSize,
                 "capa": "https://aldair.aztecweb.net/wp-content/uploads/2022/11/cover_fallback.png"
               });
           };
@@ -69,6 +70,30 @@ let globalData;
     });
     
     await browser.close();
-    // console.log(result)
     
+    console.log("Dando inicio as postagens");
+    getAndPost();
   })();
+
+const getAndPost= async()=> {
+  const data = fs.readFileSync('data.json');
+  const url_dominio = "https://aldair.aztecweb.net/wp-json/jet-cct/livros/"
+  const parseData = JSON.parse(data);
+  
+  
+  await Promise.all(parseData.map(async book => {
+    await console.log(parseInt(book._ID))
+    fetch(`${url_dominio}${parseInt(book._ID)}`, {
+      method: 'POST',
+      headers: {
+        Authorization: "Basic " + Buffer.from(`${username}:${password}`).toString('base64'),
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(book)
+    }).then(res => res.json())
+    .then(data => console.log("Sucesso:", data))
+    .catch(e => {
+      console.error("A requisição falhou:", e)
+    })
+  })
+)}
