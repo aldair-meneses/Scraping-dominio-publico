@@ -1,3 +1,5 @@
 node_modules/*
 images/*
 data.json
+books.json
+.env

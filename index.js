@@ -46,6 +46,7 @@ let globalData;
           if (verifyProps.every(value => { return value != ""; })) {
             data.push(
               {
+                "_ID": line,
                 "cct_status": "publish",
                 'link': bookLink,
                 "titulo": bookTitle,
@@ -67,7 +68,6 @@ let globalData;
       if(err) throw err;
       console.log('saved!');
     });
-    
     await browser.close();
     // console.log(result)
     
