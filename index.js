@@ -1,5 +1,5 @@
 require('dotenv').config();
-const auth = `${process.env.USERNAME}:${process.env.PASSWORD}`;
+const auth = `${process.env.NAME}:${process.env.PASSWORD}`;
 
 const puppeteer = require('puppeteer');
 const fs = require('fs');
@@ -81,7 +81,6 @@ const getAndPost= async()=> {
   const data = fs.readFileSync('data.json');
   const url_dominio = "https://aldair.aztecweb.net/wp-json/jet-cct/livros/"
   const parseData = JSON.parse(data);
-  
   await Promise.all(parseData.map(async book => {
     fetch(`${url_dominio}${parseInt(book._ID)}`, {
       method: 'POST',
