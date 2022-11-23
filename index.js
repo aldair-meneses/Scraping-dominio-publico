@@ -2,7 +2,7 @@ require('dotenv').config();
 const auth = `${process.env.USERNAME}:${process.env.PASSWORD}`;
 
 const puppeteer = require('puppeteer');
-const fs = require('fs')
+const fs = require('fs');
 
 const url = "http://www.dominiopublico.gov.br/pesquisa/ResultadoPesquisaObraForm.do?first=3000&skip=0&ds_titulo=&co_autor=&no_autor=&co_categoria=2&pagina=1&select_action=Submit&co_midia=2&co_obra=&co_idioma=1&colunaOrdenar=NU_PAGE_HITS&ordem=asc";
 let globalData;
