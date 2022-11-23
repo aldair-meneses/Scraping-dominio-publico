@@ -1,11 +1,9 @@
 require('dotenv').config();
 const fs = require('fs');
 
-const auth = `${process.env.USERNAME}:${process.env.PASSWORD}`;
+const auth = `${process.env.NAME}:${process.env.PASSWORD}`;
 
 const url = "https://aldair.aztecweb.net/wp-json/jet-cct/livros/";
-
-
 
 const getAndDelete = ()=> {
     fetch(url, {
@@ -38,7 +36,7 @@ const getAndDelete = ()=> {
             console.log("Foi excluido com sucesso!", data);
         })
         .catch(e => {
-            console.err("Ocorreu um erro na tentativa de exclusão:", e);
+            console.error("Ocorreu um erro na tentativa de exclusão:", e);
         })
     })
 })
